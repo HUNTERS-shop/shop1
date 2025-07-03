@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Покупка сопроводов у HUNTER</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #facc15;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .offer {
+      background: #1f1f1f;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px auto;
+      width: 300px;
+      box-shadow: 0 0 10px #facc15;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .offer:nth-of-type(1) { animation-delay: 0.2s; }
+    .offer:nth-of-type(2) { animation-delay: 0.4s; }
+    .offer:nth-of-type(3) { animation-delay: 0.6s; }
+    .offer:nth-of-type(4) { animation-delay: 0.8s; }
+    .offer:nth-of-type(5) { animation-delay: 0.10s; }
+    .offer:nth-of-type(6) { animation-delay: 0.12s; }
+
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    button {
+      background: #facc15;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #eab308;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .modal-content {
+      background: #1f1f1f;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 15px #facc15;
+      text-align: left;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+    }
+
+    .close {
+      float: right;
+      color: #facc15;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Покупка сопроводов у HUNTER</h1>
+  <p>Быстрая доставка | Надёжный продавец</p>
+
+<div class="offers-grid">
+  <div class="offer">
+    <h2>7 карта — 250₽ / 20zł / 200грн</h2>
+    <p>Гарант выноса от 9кк до 19кк</p>
+    <button onclick="openForm('7 карта — 250₽')">Оформить заказ</button>
+  </div>
+
+  <div class="offer">
+    <h2>8 карта — 250₽ / 20zł / 200грн</h2>
+    <p>Гарант выноса от 9кк до 19кк</p>
+    <button onclick="openForm('8 карта — 250₽')">Оформить заказ</button>
+  </div>
+
+  <div class="offer">
+    <h2>Шмотки — 10zł / 20грн / 25₽</h2>
+    <p>6 шмоток + МК14 вышка</p>
+    <button onclick="openForm('Шмотки — 25₽')">Оформить заказ</button>
+  </div>
+
+  <div class="offer">
+    <h2>Золотая пушка — 10zł / 20грн / 25₽</h2>
+    <p>Бафы выбираются автоматически</p>
+    <button onclick="openForm('Золотая пушка — 25₽')">Оформить заказ</button>
+  </div>
+</div>
+  <div class="offer">
+    <h2>Золотая бронь — 10zł / 20грн / 25₽</h2>
+    <p>Бафы выбираются автоматически</p>
+    <button onclick="openForm('Золотая пушка — 25₽')">Оформить заказ</button>
+  </div>
+</div>
+  <div class="offer">
+    <h2>Шмотки с 7/8краты — 10zł / 20грн / 25₽</h2>
+    <p>в придыдущих покупках это не как не работает</p>
+    <button onclick="openForm('Золотая пушка — 25₽')">Оформить заказ</button>
+  </div>
+
+  <!-- Модальное окно оформления -->
+  <div class="modal" id="orderModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeForm()">&times;</span>
+      <h3 id="productName">Оформление заказа</h3>
+      <input type="text" id="nickname" placeholder="Ваш ник в PUBG">
+      <button onclick="showPayment()">Перейти к оплате</button>
+    </div>
+  </div>
+
+  <!-- Модальное окно оплаты -->
+  <div class="modal" id="paymentModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeForm()">&times;</span>
+      <h3>Оплата заказа</h3>
+      <p>Переведите <b id="payAmount">сумму</b> на карту:</p>
+      <p><b>5469 3800 XXXX XXXX</b> (СБП / Сбер)</p>
+      <p>После оплаты — отправьте скрин в Telegram: <b>@Merka4k</b></p>
+      <p style="font-size: 13px; color: #999;">Мы проверим платёж в течение 5 минут и подтвердим заказ.</p>
+    </div>
+  </div>
+
+<footer>
+  <p>Оплата: QIWI, СБП, ЮMoney, Santander (PL), ПриватБанк (UA)</p>
+  <p>Связь: <b>@Merka4k (ТГ)</b> | <a href="mailto:wowrot222@gmail.com" style="color: #facc15;">wowrot222@gmail.com</a></p>
+
+  <p style="margin-top: 15px;">
+    Локальный файл магазина:<br>
+    <code id="localFilePath" style="user-select: all; cursor: pointer; color: #facc15;">file:///C:/Users/sheff/OneDrive/Pulpit/shop.html</code>
+  </p>
+</footer>
+
+  <script>
+    let selectedProduct = "";
+
+    function openForm(product) {
+      selectedProduct = product;
+      document.getElementById('productName').innerText = product;
+      document.getElementById('orderModal').style.display = 'flex';
+    }
+
+    function closeForm() {
+      document.getElementById('orderModal').style.display = 'none';
+      document.getElementById('paymentModal').style.display = 'none';
+    }
+
+    function showPayment() {
+      const nickname = document.getElementById('nickname').value.trim();
+      if (!nickname) {
+        alert('Введите ваш ник в PUBG');
+        return;
+      }
+
+      // Определяем сумму по товару
+      let amount = "250₽";
+      if (selectedProduct.includes("25₽ / 250грн / 20zł")) amount = "25₽ / 250грн / 20zł";
+
+      document.getElementById('payAmount').innerText = amount;
+      document.getElementById('orderModal').style.display = 'none';
+      document.getElementById('paymentModal').style.display = 'flex';
+
+      // Для отладки — вывод в консоль
+      console.log("Заказ:", selectedProduct, " | Ник:", nickname);
+    }
+  </script>
+</body>
+</html>
